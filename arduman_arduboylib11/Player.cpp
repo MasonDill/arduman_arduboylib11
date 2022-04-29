@@ -100,27 +100,25 @@ void Player::AddScore(long score)
 	}
 }
 
-void Player::Update()
+void Player::Update(uint8_t dir)
 {
 	if (m_wasHurt) return;
 
-	uint8_t input = arduboy.getInput();
+	uint8_t input = arduboy.buttonsState();
 
 	if (PowerIsActive())
 	{
 		if (m_sfxTimer < millis())
 		{
-#ifdef RT_ARDUDEV
-			GetAudioManager()->Play("audio/power_tick.wav");
-#else
-			tunes.tone(800, 30);
-#endif
 			m_sfxTimer = millis()+300;
 		}
 	}
 
 	if (input != 0)
 		m_inputState = input;
+
+  if (dir != 0)
+    m_inputState = dir;
 
 	//get new position
 	float x = m_x;
@@ -176,11 +174,6 @@ void Player::Update()
 		uint8_t foodX,foodY;
 		if (GetFoodWeAreOn(&foodX, &foodY, m_x, m_y))
 		{
-#ifdef RT_ARDUDEV
-			GetAudioManager()->Play("audio/get_pellet.wav");
-#else
-			tunes.tone(523, 20);
-#endif
 			m_slowTimer = millis()+200;
 			AddScore(PELLET_POINTS);
 			m_pelletsEaten++;
@@ -296,11 +289,6 @@ void Player::OnEndOfLoop()
 {
 	if (m_wasHurt)
 	{
-#ifdef RT_ARDUDEV
-		GetAudioManager()->Play("audio/die.wav");
-#else
-		tunes.playScore(music_death);
-#endif
 		m_livesLeft--;
 		fruit.OnPlayerDie();
 		
@@ -328,7 +316,6 @@ void Player::OnEndOfLoop()
 					g_mode = MODE_HIGHSCORES;
 				}
 
-				tunes.tone(523, 20);
 				delay(300);
 			} 
 			

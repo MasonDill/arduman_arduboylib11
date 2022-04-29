@@ -33,9 +33,9 @@
 #define GHOST_KILL_POINTS 200
 #define PELLET_POINTS 10
 #define POWER_PELLET_POINTS 50
+#include "Utils.h"
 
-
-void main_loop();
+void main_loop(uint8_t dir);
 void main_setup();
 void ClearAndRedrawLevel();
 void DrawScore();
@@ -54,7 +54,3 @@ enum GAME_MODE
 extern GAME_MODE g_mode;
 
 #endif // ardu_main_h__
-
-
-
-

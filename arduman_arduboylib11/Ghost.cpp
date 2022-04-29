@@ -203,11 +203,6 @@ void Ghost::Update()
 		{
 			if (player.PowerIsActive())
 			{
-#ifdef RT_ARDUDEV
-				GetAudioManager()->Play("audio/eat_ghost.wav");
-#else
-				tunes.playScore(music_kill_ghost);
-#endif
 				Render(true);
 				delay(GHOST_KILL_DELAY_MS);
 				arduboy.display();
@@ -347,4 +342,3 @@ void Ghost::OnReleasePellet(uint8_t foodX, uint8_t foodY)
 		m_foodX = m_foodY = 0;
 	}
 }
-

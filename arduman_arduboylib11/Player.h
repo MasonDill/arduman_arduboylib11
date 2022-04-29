@@ -143,7 +143,7 @@ public:
 	bool PowerIsActiveDisplay();
 	void OnKilledGhost();
 	void AddScore(long score);
-	void Update();
+	void Update(uint8_t dir);
 	bool LevelPassed();
 	void Blit(bool color);
 	void UnRender();

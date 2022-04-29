@@ -55,9 +55,6 @@ void enterInitials()
 			if (index < 0)
 			{
 				index = 0;
-			} else
-			{
-				tunes.tone(1046, 250);
 			}
 		}
 
@@ -67,15 +64,12 @@ void enterInitials()
 			if (index > 2)
 			{
 				index = 2;
-			}  else {
-				tunes.tone(1046, 250);
 			}
 		}
 
 		if (arduboy.pressed(DOWN_BUTTON))
 		{
 			initials[index]++;
-			tunes.tone(523, 250);
 			// A-Z 0-9 :-? !-/ ' '
 			if (initials[index] == '0')
 			{
@@ -98,7 +92,6 @@ void enterInitials()
 		if (arduboy.pressed(UP_BUTTON))
 		{
 			initials[index]--;
-			tunes.tone(523, 250);
 			if (initials[index] == ' ') {
 				initials[index] = '?';
 			}
@@ -118,9 +111,7 @@ void enterInitials()
 			if (index < 2)
 			{
 				index++;
-				tunes.tone(1046, 250);
 			} else {
-				tunes.tone(1046, 250);
 				return;
 			}
 		}
@@ -255,7 +246,6 @@ void displayHighScores(byte file)
 	if (arduboy.pressed(A_BUTTON))
 	{
 		g_mode = MODE_MENU;
-		tunes.tone(523, 20);
 		delay(200);
 
 		return;
@@ -263,4 +253,3 @@ void displayHighScores(byte file)
 
 	arduboy.display();
 }
-

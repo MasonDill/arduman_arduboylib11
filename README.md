@@ -1,10 +1,17 @@
+# Now With Motion Controls!
+
+Compatible with the GY521 3-axis Accelerometer
+Calibration for sensor threshhold in calibrated/calibrated.ino
+
+Requires RobTillaart's Arduino library for GY521 https://github.com/MasonDill/arduman_arduboylib11
+
+# Ported to Arduboy2
+
+Requires MLXXXp's Arduoboy2 Arduino library https://github.com/MLXXXp/Arduboy2
+
 # Ardu-man
 
-For Arduboy lib 1.1 and the consumer Arduboy device
-
 It's Ardu-man!  A game not completely dissimilar from pac-man.
-
-Play it in your browser too! www.rtsoft.com/arduman.html
 
 Version history:
 

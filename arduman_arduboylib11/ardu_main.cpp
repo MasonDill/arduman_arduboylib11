@@ -3,7 +3,7 @@
 //Thanks to: http://fuopy.github.io/arduboy-image-converter/
 
 
-#include <Arduboy.h>
+#include <Arduboy2.h>
 #include "ConvertToArduboy11.h"
 
 //#include <ArduboyPlaytune.h>
@@ -24,7 +24,7 @@
 //***********************
 
 
-Arduboy arduboy;
+Arduboy2 arduboy;
 //ArduboyPlaytune tunes;
 //AbPrinter text(arduboy);
 
@@ -44,11 +44,6 @@ void StartGame()
 {
 	arduboy.initRandomSeed();
 	g_mode = MODE_PLAYING;
-#ifdef RT_ARDUDEV
-	GetAudioManager()->Play("audio/game_start.wav");
-#else
-	tunes.playScore(level_intro);
-#endif
 	ClearAndRedrawLevel();
 	arduboy.display();
 
@@ -89,8 +84,6 @@ void ClearAndRedrawLevel()
 
 void main_setup()
 {
-	tunes.initChannel(PIN_SPEAKER_1);
-	tunes.initChannel(PIN_SPEAKER_2);
 
 	arduboy.begin();
 	
@@ -108,7 +101,7 @@ void main_setup()
 	
 }
 
-void PlayingGame()
+void PlayingGame(uint8_t dir)
 {
 	player.UnRender();
 	fruit.UnRender();
@@ -118,7 +111,7 @@ void PlayingGame()
 		ghosts[i].UnRender();
 	}
 
-	player.Update();
+	player.Update(dir);
 	fruit.Update();
 
 	for (int i=0; i < GHOST_COUNT; i++)
@@ -139,11 +132,6 @@ void PlayingGame()
 
 	if (player.LevelPassed())
 	{
-		#ifdef RT_ARDUDEV
-		GetAudioManager()->Play("audio/win_level.wav");
-#else
-		tunes.playScore(music_finish_level);
-#endif
 		g_level++;
 		delay(3500);
 		player.ResetLevel();
@@ -208,7 +196,6 @@ void StartMenu()
 	if (arduboy.pressed(A_BUTTON))
 	{
 		DrawMenu();
-		tunes.tone(623, 20);
 		delay(200);
 
 		if (g_selection == MENU_AUDIO_TOGGLE)
@@ -238,12 +225,11 @@ void StartMenu()
 	if (g_selection != oldChoice)
 	{
 		DrawMenu();
-		tunes.tone(523, 20);
 		delay(200);
 	}
 }
 
-void main_loop()
+void main_loop(uint8_t dir)
 {
   // pause render until it's time for the next frame
  if (!(arduboy.nextFrame()))
@@ -255,7 +241,7 @@ void main_loop()
 	StartGame();
 	 break;
  case MODE_PLAYING:
-	 PlayingGame();
+	 PlayingGame(dir);
 	 break;
  case MODE_MENU:
 	 player.ResetGame();
@@ -268,5 +254,3 @@ void main_loop()
  }
   
 }
-
-

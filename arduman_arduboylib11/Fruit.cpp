@@ -48,11 +48,6 @@ void Fruit::Update()
 	{
 		if (EntitiesAreTouching(FRUIT_X+1, FRUIT_Y, player.m_x, player.m_y, 2.0f))
 		{
-			#ifdef RT_ARDUDEV
-						GetAudioManager()->Play("audio/eat_ghost.wav");
-			#else
-						tunes.playScore(music_bonus);
-			#endif
 			m_bActive = false;
 			player.AddScore(1000*g_level);
 			return;
